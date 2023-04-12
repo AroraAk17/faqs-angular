@@ -1,0 +1,10 @@
+<div class="faq">
+  <div *ngFor="let item of faqItems; let i = index">
+    <div class="faq-item">
+      <h3 class="faq-item-title" (click)="toggleItem(i)">{{ item.question }}</h3>
+      <div class="faq-item-content" [hidden]="!item.open">
+        <p>{{ item.answer }}</p>
+      </div>
+    </div>
+  </div>
+</div>
