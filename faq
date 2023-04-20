@@ -1,0 +1,52 @@
+Here's an example of how you could write Karma and Jasmine tests for the FAQ component:
+
+Create a new file named faq.component.spec.ts in the same directory as the faq.component.ts file.
+
+Add the following code to the faq.component.spec.ts file:
+
+typescript
+Copy code
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FaqComponent } from './faq.component';
+
+describe('FaqComponent', () => {
+  let component: FaqComponent;
+  let fixture: ComponentFixture<FaqComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ FaqComponent ]
+    })
+    .compileComponents();
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(FaqComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create the component', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should toggle the item open state when the title is clicked', () => {
+    const itemIndex = 1;
+    const item = component.faqItems[itemIndex];
+
+    expect(item.open).toBeFalse();
+    component.toggleItem(itemIndex);
+    expect(item.open).toBeTrue();
+    component.toggleItem(itemIndex);
+    expect(item.open).toBeFalse();
+  });
+});
+In this code, we are importing the necessary modules and defining the tests for the FAQ component. We are testing that the component is created successfully using the toBeTruthy() matcher, and we are testing that the toggleItem() method correctly toggles the open state of the FAQ item when the title is clicked.
+
+Note that in order to run the tests, you will need to have Karma and Jasmine installed and configured in your Angular project.
+
+Run the tests using the following command:
+bash
+Copy code
+ng test
+This will run the Karma test runner and execute the tests defined in the faq.component.spec.ts file. If all tests pass, you should see a success message in the console. If any tests fail, you will see an error message with details about which tests failed and why.
