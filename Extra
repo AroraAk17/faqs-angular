@@ -1,0 +1,30 @@
+it('should initialize faqItems with the correct values', () => {
+  expect(component.faqItems).toEqual([
+    { title: 'Question 1', content: 'Answer 1', open: false },
+    { title: 'Question 2', content: 'Answer 2', open: false },
+    { title: 'Question 3', content: 'Answer 3', open: false }
+  ]);
+});
+it('should render the faq items correctly', () => {
+  fixture.detectChanges();
+  const faqItems = fixture.nativeElement.querySelectorAll('.faq-item');
+
+  expect(faqItems.length).toBe(3);
+
+  const titles = fixture.nativeElement.querySelectorAll('.faq-item__title');
+  expect(titles[0].textContent).toContain('Question 1');
+  expect(titles[1].textContent).toContain('Question 2');
+  expect(titles[2].textContent).toContain('Question 3');
+
+  const contents = fixture.nativeElement.querySelectorAll('.faq-item__content');
+  expect(contents[0].textContent).toContain('Answer 1');
+  expect(contents[1].textContent).toContain('Answer 2');
+  expect(contents[2].textContent).toContain('Answer 3');
+});
+it('should emit an event when an item is toggled', () => {
+  spyOn(component.itemToggled, 'emit');
+  const itemIndex = 1;
+
+  component.toggleItem(itemIndex);
+  expect(component.itemToggled.emit).toHaveBeenCalledWith(itemIndex);
+});
