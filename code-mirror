@@ -1,0 +1,74 @@
+By default, the Codemirror-scrollbar is a fixed size element that appears on the right-hand side of the editor, and it doesn't adjust its size based on the content size of the editor. However, you can make the scrollbar responsive to the content size of the editor by using some CSS and JavaScript.
+First, add the following CSS rule to make the Codemirror editor take up the full height of its container:
+.CodeMirror {
+  height: 100%;
+}
+Next, add the following CSS rule to hide the default scrollbar:
+.CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
+  background-color: #F5F5F5;
+}
+
+.CodeMirror-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  display: none;
+}
+Add the following JavaScript code to calculate the height of the editor content and adjust the height of the scrollbar accordingly:
+function updateScrollbarHeight(editor) {
+  var contentHeight = editor.getScrollInfo().height - editor.display.scroller.clientHeight + 'px';
+  editor.display.scrollbarV.style.height = contentHeight;
+}
+
+// Call the updateScrollbarHeight function whenever the editor is resized
+editor.on('refresh', function() {
+  updateScrollbarHeight(editor);
+});
+
+// Call the updateScrollbarHeight function once after the editor has been initialized
+setTimeout(function() {
+  updateScrollbarHeight(editor);
+}, 100);
+By default, the Codemirror-scrollbar is a fixed size element that appears on the right-hand side of the editor, and it doesn't adjust its size based on the content size of the editor. However, you can make the scrollbar responsive to the content size of the editor by using some CSS and JavaScript.
+
+Here's an example of how you can achieve this:
+
+First, add the following CSS rule to make the Codemirror editor take up the full height of its container:
+css
+Copy code
+.CodeMirror {
+  height: 100%;
+}
+Next, add the following CSS rule to hide the default scrollbar:
+css
+Copy code
+.CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
+  background-color: #F5F5F5;
+}
+
+.CodeMirror-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  display: none;
+}
+Add the following JavaScript code to calculate the height of the editor content and adjust the height of the scrollbar accordingly:
+javascript
+Copy code
+function updateScrollbarHeight(editor) {
+  var contentHeight = editor.getScrollInfo().height - editor.display.scroller.clientHeight + 'px';
+  editor.display.scrollbarV.style.height = contentHeight;
+}
+
+// Call the updateScrollbarHeight function whenever the editor is resized
+editor.on('refresh', function() {
+  updateScrollbarHeight(editor);
+});
+
+// Call the updateScrollbarHeight function once after the editor has been initialized
+setTimeout(function() {
+  updateScrollbarHeight(editor);
+}, 100);
+In this code, we first define a function updateScrollbarHeight that calculates the height of the editor content by subtracting the visible height of the editor from its total height. Then, we set the height of the scrollbar element to this calculated value.
+
+We then add an event listener to the editor's refresh event, which fires whenever the editor is resized, and call the updateScrollbarHeight function to update the scrollbar's height accordingly. Finally, we call the updateScrollbarHeight function once after a short delay to ensure that the scrollbar is properly initialized.
+
+With these changes, the scrollbar will adjust its size based on the content size of the editor, making it responsive to the screen size.
