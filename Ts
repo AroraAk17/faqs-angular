@@ -1,0 +1,29 @@
+interface Faq {
+  question: string;
+  answer: string;
+}
+const faqUrl = 'faq.json';
+
+fetch(faqUrl)
+  .then(response => response.json())
+  .then(data => {
+    const faqs: Faq[] = data.faqs;
+    // do something with the faqs data
+  });
+const faqContainer = document.getElementById('faq-container');
+
+faqs.forEach(faq => {
+  const faqItem = document.createElement('div');
+  faqItem.classList.add('faq-item');
+
+  const question = document.createElement('h3');
+  question.textContent = faq.question;
+
+  const answer = document.createElement('p');
+  answer.textContent = faq.answer;
+
+  faqItem.appendChild(question);
+  faqItem.appendChild(answer);
+
+  faqContainer.appendChild(faqItem);
+});
