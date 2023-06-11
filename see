@@ -1,0 +1,65 @@
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+// ...
+
+Storage storage = StorageOptions.getDefaultInstance().getService();
+
+// Create a SimpleDateFormat object with the desired date format
+SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
+
+// Get the current date and format it using the SimpleDateFormat object
+String currentDate = dateFormat.format(new Date());
+
+// Create the folder name using the formatted current date
+String folderName = currentDate + "/";
+
+// Specify the file name you want to copy
+String sourceObjectName = "file-to-copy.txt";
+
+// Specify the target object name including the folder
+String targetObjectName = folderName + sourceObjectName;
+
+// Create a Blob object that represents the file you want to copy from the Pod
+Blob sourceBlob = storage.get("my-pod-bucket", sourceObjectName);
+
+// Create a BlobInfo object that represents the new file you want to create in the Cloud Storage bucket
+BlobInfo targetBlob = BlobInfo.newBuilder("my-cloud-storage-bucket", targetObjectName).build();
+
+// Copy the file from the Pod to the bucket
+Blob copiedBlob = sourceBlob.copyTo(targetBlob);
+
+
+
+###########2
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+// ...
+
+Storage storage = StorageOptions.getDefaultInstance().getService();
+
+// Create a SimpleDateFormat object with the desired date format
+SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy");
+
+// Get the current date and format it using the SimpleDateFormat object
+String currentDate = dateFormat.format(new Date());
+
+// Create the folder name using the formatted current date
+String folderName = currentDate + "/";
+
+// Specify the file name you want to copy
+String sourceObjectName = "file-to-copy.txt";
+
+// Specify the target object name including the folder
+String targetObjectName = folderName + sourceObjectName;
+
+// Create a Blob object that represents the file you want to copy from the Pod
+Blob sourceBlob = storage.get("my-pod-bucket", sourceObjectName);
+
+// Create a BlobInfo object that represents the new file you want to create in the Cloud Storage bucket
+BlobInfo targetBlob = BlobInfo.newBuilder("my-cloud-storage-bucket", targetObjectName).build();
+
+// Copy the file from the Pod to the bucket
+Blob copiedBlob = sourceBlob.copyTo(targetBlob);
