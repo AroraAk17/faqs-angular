@@ -21,3 +21,50 @@ if (isCreated) {
 } else {
     System.err.println("Failed to create the new directory");
 }
+
+
+vshbncmjsxs
+
+Yes, instead of using the renameTo() method to move the current directory, you can use the Files.move() method from the java.nio.file package. The Files.move() method provides more flexibility and control over the move operation. Here's an example of how you can modify the code to use Files.move():
+
+java
+Copy code
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+
+String directoryPath = "/path/to/new/directory";
+File newDirectory = new File(directoryPath);
+
+// Create the new directory
+boolean isCreated = newDirectory.mkdir();
+
+if (isCreated) {
+    System.out.println("New directory created successfully");
+
+    // Move into the new directory
+    Path currentPath = Path.of(".");
+    Path newCurrentPath = newDirectory.toPath().resolve(currentPath.getFileName());
+
+    try {
+        Files.move(currentPath, newCurrentPath, StandardCopyOption.REPLACE_EXISTING);
+        System.out.println("Moved into the new directory");
+    } catch (IOException e) {
+        System.err.println("Failed to move into the new directory: " + e.getMessage());
+    }
+} else {
+    System.err.println("Failed to create the new directory");
+}
+In this modified code:
+
+The directoryPath variable holds the desired path for the new directory.
+A new File object, newDirectory, is created with the directoryPath.
+The mkdir() method is called on newDirectory to create the new directory. It returns a boolean indicating whether the directory was created successfully.
+An if statement is used to check if the directory was created (isCreated is true).
+If the directory was created successfully, a success message is printed.
+The current path is obtained using Path.of(".").
+A Path object, newCurrentPath, is created by resolving the current path's filename against the new directory's path.
+The Files.move() method is called to move the current path to the new path. The StandardCopyOption.REPLACE_EXISTING option is used to replace any existing files or directories in the new location.
+If the move operation is successful, a success message is printed.
+If the move operation fails, an error message is printed.
+With this modification, the code uses Files.move() to move the current directory to the new location instead of using renameTo().
