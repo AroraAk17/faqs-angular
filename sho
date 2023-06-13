@@ -1,0 +1,23 @@
+String directoryPath = "/path/to/new/directory";
+File newDirectory = new File(directoryPath);
+
+// Create the new directory
+boolean isCreated = newDirectory.mkdir();
+
+if (isCreated) {
+    System.out.println("New directory created successfully");
+
+    // Move into the new directory
+    String currentPath = new File(".").getAbsolutePath();
+    File currentDirectory = new File(currentPath);
+    File newCurrentDirectory = new File(newDirectory, currentDirectory.getName());
+    boolean isMoved = currentDirectory.renameTo(newCurrentDirectory);
+
+    if (isMoved) {
+        System.out.println("Moved into the new directory");
+    } else {
+        System.err.println("Failed to move into the new directory");
+    }
+} else {
+    System.err.println("Failed to create the new directory");
+}
