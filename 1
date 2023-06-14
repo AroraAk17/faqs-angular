@@ -81,3 +81,7 @@ public class CopyFilesToGCPBucket {
         }
     }
 }
+
+   //2. Delete the file from the source directory
+                    Files.deleteIfExists(sourcePath);
+                     file.delete();
