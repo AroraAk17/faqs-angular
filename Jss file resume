@@ -1,0 +1,68 @@
+import React, { useState } from 'react';
+
+// Sample data for jobs and candidates
+const jobs = [
+  { id: 1, title: 'Job 1', description: 'Job 1 description' },
+  { id: 2, title: 'Job 2', description: 'Job 2 description' },
+  // Add more jobs as needed
+];
+
+const candidates = [
+  { id: 1, name: 'Candidate 1', skills: ['React', 'JavaScript'] },
+  { id: 2, name: 'Candidate 2', skills: ['JavaScript', 'HTML', 'CSS'] },
+  // Add more candidates as needed
+];
+
+const App = () => {
+  const [selectedJob, setSelectedJob] = useState(null);
+
+  const handleJobClick = (jobId) => {
+    setSelectedJob(jobId);
+  };
+
+  const getEligibleCandidates = () => {
+    if (selectedJob) {
+      const job = jobs.find((job) => job.id === selectedJob);
+      const eligibleCandidates = candidates.filter((candidate) =>
+        candidate.skills.includes(job.title)
+      );
+
+      return eligibleCandidates.sort((a, b) => b.skills.length - a.skills.length);
+    }
+
+    return [];
+  };
+
+  return (
+    <div className="container">
+      <h1>Job List</h1>
+      <ul className="job-list">
+        {jobs.map((job) => (
+          <li
+            key={job.id}
+            className={selectedJob === job.id ? 'selected' : ''}
+            onClick={() => handleJobClick(job.id)}
+          >
+            {job.title}
+          </li>
+        ))}
+      </ul>
+
+      {selectedJob && (
+        <div>
+          <h2>Job Details</h2>
+          <p>{jobs.find((job) => job.id === selectedJob).description}</p>
+
+          <h2>Eligible Candidates</h2>
+          <ul className="candidate-list">
+            {getEligibleCandidates().map((candidate) => (
+              <li key={candidate.id}>{candidate.name}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default App;
