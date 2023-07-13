@@ -1,0 +1,31 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.job-list {
+  list-style: none;
+  padding: 0;
+}
+
+.job-list li {
+  cursor: pointer;
+  padding: 10px;
+  margin-bottom: 5px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+}
+
+.job-list li.selected {
+  background-color: #d3d3d3;
+}
+
+.candidate-list {
+  list-style: none;
+  padding: 0;
+}
+
+.candidate-list li {
+  margin-bottom: 5px;
+}
