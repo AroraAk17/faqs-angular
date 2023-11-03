@@ -1,0 +1,180 @@
+import { setFieldoptions, hideFieldoptions } from './your-module'; // Import your functions
+import { FieldGroup } from './your-types'; // Import your types
+
+describe('setFieldoptions function', () => {
+  it('should set field options for a valid field key', () => {
+    const formGroups: FieldGroup[] = [
+      {
+        fieldGroup: [
+          {
+            key: 'rulebookNumber',
+            type: 'rcaselect',
+            className: 'decision col-3',
+            fieldoptions: [],
+            settings: {},
+          },
+        ],
+        fieldGroupClassName: 'row',
+      },
+    ];
+
+    setFieldoptions('rulebookNumber', [{ label: 'Option 1', value: 'option1' }], formGroups);
+
+    expect(formGroups[0].fieldGroup[0].fieldoptions).toEqual([{ label: 'Option 1', value: 'option1' }]);
+  });
+
+  it('should not set field options for an invalid field key', () => {
+    const formGroups: FieldGroup[] = [
+      {
+        fieldGroup: [
+          {
+            key: 'rulebookNumber',
+            type: 'rcaselect',
+            className: 'decision col-3',
+            fieldoptions: [],
+            settings: {},
+          },
+        ],
+        fieldGroupClassName: 'row',
+      },
+    ];
+
+    setFieldoptions('invalidFieldKey', [{ label: 'Option 1', value: 'option1' }], formGroups);
+
+    // Verify that the fieldoptions remain unchanged
+    expect(formGroups[0].fieldGroup[0].fieldoptions).toEqual([]);
+  });
+});
+
+describe('hideFieldoptions function', () => {
+  it('should set hideExpression for a valid field key', () => {
+    const formGroups: FieldGroup[] = [
+      {
+        fieldGroup: [
+          {
+            key: 'rulebookNumber',
+            type: 'rcaselect',
+            className: 'decision col-3',
+            fieldoptions: [],
+            settings: {},
+            hideExpression: '',
+          },
+        ],
+        fieldGroupClassName: 'row',
+      },
+    ];
+
+    hideFieldoptions('rulebookNumber', 'some-expression', formGroups);
+
+    expect(formGroups[0].fieldGroup[0].hideExpression).toBe('some-expression');
+  });
+
+  it('should not set hideExpression for an invalid field key', () => {
+    const formGroups: FieldGroup[] = [
+      {
+        fieldGroup: [
+          {
+            key: 'rulebookNumber',
+            type: 'rcaselect',
+            className: 'decision col-3',
+            fieldoptions: [],
+            settings: {},
+            hideExpression: '',
+          },
+        ],
+        fieldGroupClassName: 'row',
+      },
+    ];
+
+    hideFieldoptions('invalidFieldKey', 'some-expression', formGroups);
+
+    // Verify that the hideExpression remains unchanged
+    expect(formGroups[0].fieldGroup[0].hideExpression).toBe('');
+  });
+});
+
+import { findFieldinFieldList, findFieldInformGroups, getField } from './yourModule'; // Import the functions from your module
+
+describe('findFieldinFieldList function', () => {
+  it('should return the correct field when found in the list', () => {
+    const fieldList = [
+      { key: 'field1', type: 'type1' },
+      { key: 'field2', type: 'type2' },
+    ];
+
+    const fieldKey = 'field2';
+
+    const result = findFieldinFieldList(fieldList, fieldKey);
+
+    expect(result).toEqual({ key: 'field2', type: 'type2' });
+  });
+
+  it('should return null when the field is not found in the list', () => {
+    const fieldList = [
+      { key: 'field1', type: 'type1' },
+      { key: 'field2', type: 'type2' },
+    ];
+
+    const fieldKey = 'field3';
+
+    const result = findFieldinFieldList(fieldList, fieldKey);
+
+    expect(result).toBeNull();
+  });
+});
+
+describe('findFieldInformGroups function', () => {
+  it('should return the correct field when found in a group', () => {
+    const formGroups = [
+      { fieldGroup: [{ key: 'field1', type: 'type1' }] },
+      { fieldGroup: [{ key: 'field2', type: 'type2' }] },
+    ];
+
+    const fieldKey = 'field2';
+
+    const result = findFieldInformGroups(formGroups, fieldKey);
+
+    expect(result).toEqual({ key: 'field2', type: 'type2' });
+  });
+
+  it('should return null when the field is not found in any group', () => {
+    const formGroups = [
+      { fieldGroup: [{ key: 'field1', type: 'type1' }] },
+      { fieldGroup: [{ key: 'field2', type: 'type2' }] },
+    ];
+
+    const fieldKey = 'field3';
+
+    const result = findFieldInformGroups(formGroups, fieldKey);
+
+    expect(result).toBeNull();
+  });
+});
+
+describe('getField function', () => {
+  it('should return the correct field when found in formGroups', () => {
+    const formGroups = [
+      { fieldGroup: [{ key: 'field1', type: 'type1' }] },
+      { fieldGroup: [{ key: 'field2', type: 'type2' }] },
+    ];
+
+    const fieldKey = 'field2';
+
+    const result = getField(fieldKey, formGroups);
+
+    expect(result).toEqual({ key: 'field2', type: 'type2' });
+  });
+
+  it('should return null when the field is not found in formGroups', () => {
+    const formGroups = [
+      { fieldGroup: [{ key: 'field1', type: 'type1' }] },
+      { fieldGroup: [{ key: 'field2', type: 'type2' }] },
+    ];
+
+    const fieldKey = 'field3';
+
+    const result = getField(fieldKey, formGroups);
+
+    expect(result).toBeNull();
+  });
+});
