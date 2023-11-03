@@ -1,0 +1,12 @@
+export const findFieldInGroups = (formGroups: FieldGroup[], fieldKey: string): FormField | null => {
+  const foundField = formGroups.reduce((result: FormField | null, group: FieldGroup) => {
+    if (result) {
+      return result;
+    }
+
+    const fieldInGroup = findFieldinFieldList(group.fieldGroup || [], fieldKey);
+    return fieldInGroup ? fieldInGroup : null;
+  }, null);
+
+  return foundField;
+};
