@@ -10,3 +10,20 @@ export const findFieldInGroups = (formGroups: FieldGroup[], fieldKey: string): F
 
   return foundField;
 };
+
+export const findFieldInGroups = (formGroups: FieldGroup[], fieldKey: string): FormField[] | null => {
+  const foundGroups: FormField[] = formGroups.reduce((result: FormField[], group: FieldGroup) => {
+    if (result.length > 0) {
+      return result;
+    }
+
+    const fieldInGroup = findFieldinFieldList(group.fieldGroup || [], fieldKey);
+    if (fieldInGroup) {
+      result.push(fieldInGroup);
+    }
+
+    return result;
+  }, []);
+
+  return foundGroups.length > 0 ? foundGroups : null;
+};
