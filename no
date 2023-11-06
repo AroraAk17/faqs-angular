@@ -15,3 +15,42 @@ export const findFieldInformGroups = (formGroups: FieldGroup[], fieldkey: string
 
   return result || null;
 };
+
+
+import { findFieldInformGroups } from './your-module'; // Import your module and function
+
+describe('findFieldInformGroups', () => {
+  const field1 = { key: 'rulebookNumber', type: 'rcaselect', className: 'decision col-3', fieldoptions: [], settings: '-' };
+  const field2 = { key: 'otherField', type: 'text', className: 'text-field', fieldoptions: [], settings: '-' };
+
+  const formGroups = [
+    { fieldGroupClassName: 'row', fieldGroup: [field1] },
+    { fieldGroupClassName: 'row', fieldGroup: [field1, field2] },
+    { fieldGroupClassName: 'row', fieldGroup: [field2] },
+  ];
+
+  it('should return the correct FieldGroup when field exists', () => {
+    const result = findFieldInformGroups(formGroups, 'rulebookNumber');
+    expect(result).toEqual(formGroups[0]);
+  });
+
+  it('should return null when field does not exist', () => {
+    const result = findFieldInformGroups(formGroups, 'nonExistentField');
+    expect(result).toBeNull();
+  });
+
+  it('should return the first matching FieldGroup if multiple match', () => {
+    const result = findFieldInformGroups(formGroups, 'rulebookNumber');
+    expect(result).toEqual(formGroups[0]);
+  });
+
+  it('should return null for an empty fieldGroups array', () => {
+    const result = findFieldInformGroups([], 'rulebookNumber');
+    expect(result).toBeNull();
+  });
+
+  it('should return null when the fieldGroups array is null', () => {
+    const result = findFieldInformGroups(null, 'rulebookNumber');
+    expect(result).toBeNull();
+  });
+});
